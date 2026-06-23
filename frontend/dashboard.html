@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- LEFT SIDEBAR -->
+    <div class="sidebar">
+
+        <h3>History 🔥</h3>
+
+        <div id="historyList"></div>
+
+    </div>
+
+    <!-- MAIN SECTION -->
+    <div class="main">
+
+        <h1>Resume Roaster 🔥</h1>
+
+        <h2>Upload Resume</h2>
+
+        <input type="file" id="resumeFile">
+
+        <button onclick="uploadResume()">Analyze Resume</button>
+
+        <h2>AI Result</h2>
+
+        <pre id="result"></pre>
+
+    </div>
+
+</div>
+
+<script src="app.js"></script>
+
+</body>
+
+</html>

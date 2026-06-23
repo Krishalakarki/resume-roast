@@ -1,0 +1,62 @@
+body{
+
+    font-family: Arial;
+    text-align:center;
+    margin-top:50px;
+
+}
+
+
+input,button{
+
+    display:block;
+
+    margin:15px auto;
+
+    padding:10px;
+
+    width:250px;
+
+}
+
+
+button{
+
+    cursor:pointer;
+
+}
+
+
+
+.container {
+    display: flex;
+    height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 30%;
+    background: #111;
+    color: white;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+/* Main area */
+.main {
+    width: 70%;
+    padding: 30px;
+}
+
+
+
+.history-item {
+    background: #222;
+    padding: 10px;
+    margin: 10px 0;
+    cursor: pointer;
+}
+
+.history-item:hover {
+    background: #333;
+}

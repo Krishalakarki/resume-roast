@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 
 from app.database.db import engine, Base
 from app.database import models
+from app.database.models import User, RoastHistory
 
 from app.routes import auth, roast, llm_analyze
 

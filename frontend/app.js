@@ -72,12 +72,8 @@ async function uploadResume() {
 
     const data = await response.json();
 
-    // ✅ SAFE extraction (works for all backend formats)
-    const aiText =
-        data.result?.choices?.[0]?.message?.content ||
-        data.result?.ai_response ||
-        data.result ||
-        "No response found";
+    // ✅ Backend now always returns clean text in data.result
+    const aiText = data.result || "No response found";
 
     document.getElementById("result").innerText = aiText;
 }
@@ -111,10 +107,8 @@ async function loadHistory() {
 
         div.onclick = () => {
 
-            const text =
-                item.ai_response?.choices?.[0]?.message?.content ||
-                item.ai_response ||
-                "No data";
+            // ✅ ai_response is now stored as clean text in the DB
+            const text = item.ai_response || "No data";
 
             document.getElementById("result").innerText = text;
         };

@@ -2,7 +2,10 @@
 <html>
 
 <head>
-    <title>Dashboard</title>
+    <title>Dashboard · Resume Roaster</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -13,32 +16,67 @@
     <!-- LEFT SIDEBAR -->
     <div class="sidebar">
 
-        <h3>History 🔥</h3>
+        <div class="sidebar-brand">
+            <span class="flame">🔥</span>
+            <span>Resume Roaster</span>
+        </div>
 
-        <div id="historyList"></div>
+        <h3>History</h3>
+
+        <div id="historyList" class="history-list">
+            <p class="history-empty">Your past roasts will show up here.</p>
+        </div>
+
+        <button class="logout-btn" onclick="logout()">Log out</button>
 
     </div>
 
     <!-- MAIN SECTION -->
     <div class="main">
 
-        <h1>Resume Roaster 🔥</h1>
+        <header class="main-header">
+            <h1>Get your resume roasted 🔥</h1>
+            <p class="subtitle">Upload it, brace yourself, and come back better.</p>
+        </header>
 
-        <h2>Upload Resume</h2>
+        <div class="dashboard-grid">
 
-        <input type="file" id="resumeFile">
+            <section class="card upload-card">
+                <span class="card-eyebrow">Step 1</span>
+                <h2>Upload resume</h2>
+                <p class="card-hint">PDF works best. We read it, then we judge it.</p>
 
-        <button onclick="uploadResume()">Analyze Resume</button>
+                <label class="file-drop" for="resumeFile">
+                    <span id="fileLabel">Choose a file</span>
+                </label>
+                <input type="file" id="resumeFile" hidden onchange="updateFileLabel()">
 
-        <h2>AI Result</h2>
+                <button class="primary-btn" onclick="uploadResume()">Analyze resume</button>
+            </section>
 
-        <pre id="result"></pre>
+            <section class="card result-card">
+                <span class="card-eyebrow">Step 2</span>
+                <h2>The verdict</h2>
+                <pre id="result">Nothing yet — upload a resume to see your roast here.</pre>
+            </section>
+
+        </div>
 
     </div>
 
 </div>
 
 <script src="app.js"></script>
+<script>
+    function updateFileLabel() {
+        const file = document.getElementById("resumeFile").files[0];
+        document.getElementById("fileLabel").textContent = file ? file.name : "Choose a file";
+    }
+    function logout() {
+        localStorage.removeItem("token");
+        window.location.href = "login.html";
+    }
+</script>
 
 </body>
 

@@ -58,12 +58,26 @@ async def analyze_resume(
     # Send resume to LLM
     result = roast_resume(text)
 
+    # ✅ FIX: extract only the clean roast text, not the whole API object.
+    # Works whether `result` is a Groq SDK object, a plain dict shaped
+    # like the API response, or already just a string.
+    if hasattr(result, "choices"):
+        roast_text = result.choices[0].message.content
+    elif isinstance(result, dict):
+        roast_text = (
+            result.get("choices", [{}])[0]
+            .get("message", {})
+            .get("content", str(result))
+        )
+    else:
+        roast_text = str(result)
+
     # Save AI result in database
     new_entry = RoastHistory(
         user_email=user,
         filename=file.filename,
         resume_text=text,
-        ai_response=str(result)
+        ai_response=roast_text
     )
 
     db.add(new_entry)
@@ -74,7 +88,7 @@ async def analyze_resume(
         "message": "Resume analyzed + saved",
         "user": user,
         "filename": file.filename,
-        "result": result
+        "result": roast_text
     }
 
 

@@ -2,35 +2,39 @@
 <html>
 
 <head>
-    <title>Login</title>
+    <title>Login · Resume Roaster</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 
 
-<body>
+<body class="auth-body">
 
+<div class="auth-card">
 
-<h2>Login</h2>
+    <h2>Welcome back</h2>
+    <p class="auth-hint">Log in to see your roast history.</p>
 
+    <input
+        id="loginEmail"
+        placeholder="Email">
 
-<input 
-id="loginEmail"
-placeholder="Email">
+    <input
+        id="loginPassword"
+        type="password"
+        placeholder="Password">
 
+    <button class="primary-btn" onclick="login()">
+        Log in
+    </button>
 
-<input 
-id="loginPassword"
-type="password"
-placeholder="Password">
+    <p class="auth-switch">No account yet? <a href="signup.html">Create one</a></p>
 
-
-<button onclick="login()">
-Login
-</button>
-
+</div>
 
 <script src="app.js"></script>
-
 
 </body>
 

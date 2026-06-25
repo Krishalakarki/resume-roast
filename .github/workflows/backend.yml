@@ -16,7 +16,6 @@ jobs:
 
     runs-on: ubuntu-latest
 
-
     steps:
 
     - name: Checkout code
@@ -36,6 +35,9 @@ jobs:
 
 
     - name: Run tests
+      env:
+        DATABASE_URL: ${{ secrets.DATABASE_URL }}
+
       run: |
         cd backend
         PYTHONPATH=. pytest

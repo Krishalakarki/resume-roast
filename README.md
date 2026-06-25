@@ -2,7 +2,7 @@
 
 # 🔥 Resume Roaster
 
-**An AI-powered resume analysis platform that roasts your resume, scores your job readiness, and tells you exactly what's missing — built to understand how real GenAI SaaS products are architected, not just prompted.**
+**An AI-powered resume analysis platform that roasts your resume, scores your job readiness, and tells you exactly what's missing — built to understand how real GenAI SaaS products are architected.**
 
 [![Python](https://img.shields.io/badge/Python-3.11-3776AB?style=flat-square&logo=python&logoColor=white)](https://www.python.org/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=flat-square&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)

@@ -29,7 +29,9 @@ app.include_router(roast.router, prefix="/roast", tags=["Roast"])
 app.include_router(llm_analyze.router, prefix="/llm_analyze", tags=["LLM"])
 
 # ---------------- DB INIT ----------------
-Base.metadata.create_all(bind=engine)
+if __name__ == "__main__":
+    Base.metadata.create_all(bind=engine)
+# Base.metadata.create_all(bind=engine)
 
 # ---------------- HOME ROUTE ----------------
 @app.get("/")

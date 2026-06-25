@@ -17,7 +17,7 @@ app = FastAPI()
 # ---------------- CORS SETUP ----------------
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # allow all frontend requests (React/HTML/etc)
+    allow_origins=["https://resume-roast3r.netlify.app/"],  # allow all frontend requests (React/HTML/etc)
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

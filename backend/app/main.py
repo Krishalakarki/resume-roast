@@ -4,36 +4,42 @@ from dotenv import load_dotenv
 
 from app.database.db import engine, Base
 from app.database import models
-from app.database.models import User, RoastHistory
 
 from app.routes import auth, roast, llm_analyze
 
-# Load environment variables
+
 load_dotenv()
 
-# Create FastAPI app
 app = FastAPI()
+
 
 # ---------------- CORS SETUP ----------------
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://resume-roast3r.netlify.app/"],  # allow all frontend requests (React/HTML/etc)
+    allow_origins=[
+        "http://localhost:5500",
+        "http://127.0.0.1:5500",
+        "https://resume-roast3r.netlify.app"
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 
 # ---------------- ROUTES ----------------
 app.include_router(auth.router, prefix="/auth", tags=["Auth"])
 app.include_router(roast.router, prefix="/roast", tags=["Roast"])
 app.include_router(llm_analyze.router, prefix="/llm_analyze", tags=["LLM"])
 
+
 # ---------------- DB INIT ----------------
-if __name__ == "__main__":
-    Base.metadata.create_all(bind=engine)
-# Base.metadata.create_all(bind=engine)
+Base.metadata.create_all(bind=engine)
+
 
 # ---------------- HOME ROUTE ----------------
 @app.get("/")
 def home():
-    return {"message": "Resume Roaster API is running 🔥"}
+    return {
+        "message": "Resume Roaster API is running 🔥"
+    }

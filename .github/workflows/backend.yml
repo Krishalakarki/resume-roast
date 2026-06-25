@@ -25,7 +25,6 @@ jobs:
 
     - name: Setup Python
       uses: actions/setup-python@v5
-
       with:
         python-version: "3.10"
 
@@ -39,4 +38,4 @@ jobs:
     - name: Run tests
       run: |
         cd backend
-        pytest
+        PYTHONPATH=. pytest

@@ -8,23 +8,23 @@ from app.database import models
 from app.routes import auth, roast, llm_analyze
 
 
+# Load environment variables
 load_dotenv()
 
+
+# Create FastAPI app
 app = FastAPI()
 
 
 # ---------------- CORS SETUP ----------------
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:5500",
-        "http://127.0.0.1:5500",
-        "https://resume-roast3r.netlify.app"
-    ],
-    allow_credentials=True,
+    allow_origins=["*"],
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+# "https://resume-roast3r.netlify.app",
 
 
 # ---------------- ROUTES ----------------

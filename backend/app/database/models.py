@@ -18,4 +18,19 @@ class RoastHistory(Base):
     resume_text = Column(Text)
 
     ai_response = Column(Text)
-    
+
+
+class Payment(Base):
+
+    __tablename__ = "payments"
+
+
+    id = Column(Integer, primary_key=True)
+
+    user_email = Column(String(255))
+
+    transaction_id = Column(String(255))
+
+    amount = Column(Integer)
+
+    status = Column(String(50))

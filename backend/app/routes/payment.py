@@ -54,6 +54,9 @@ def create_esewa_payment(
         "amount": 199,
 
 
+        "tax_amount": 0,
+
+
         "total_amount": 199,
 
 
@@ -64,6 +67,9 @@ def create_esewa_payment(
 
 
         "product_delivery_charge": 0,
+
+
+        "signed_field_names": "total_amount,transaction_uuid,product_code",
 
 
         "signature": payment["signature"],

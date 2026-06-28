@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 from app.database.db import engine, Base
 from app.database import models
 
-from app.routes import auth, roast, llm_analyze
+from app.routes import auth, roast, llm_analyze, payment
 
 
 # Load environment variables
@@ -31,6 +31,7 @@ app.add_middleware(
 app.include_router(auth.router, prefix="/auth", tags=["Auth"])
 app.include_router(roast.router, prefix="/roast", tags=["Roast"])
 app.include_router(llm_analyze.router, prefix="/llm_analyze", tags=["LLM"])
+app.include_router( payment.router,prefix="/payment",tags=["Payment"])
 
 
 # ---------------- DB INIT ----------------

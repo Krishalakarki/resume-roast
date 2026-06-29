@@ -99,84 +99,41 @@ def create_esewa_payment(
 
 
 # CALLBACK FROM ESEWA
+import base64
+import json
 
 @router.get("/success")
 def payment_success(
-
-    transaction_uuid: str,
-
+    data: str,
     db: Session = Depends(get_db)
-
 ):
+    try:
+        decoded = base64.b64decode(data).decode("utf-8")
+        payload = json.loads(decoded)
+    except Exception:
+        return {"error": "Invalid payment response"}
 
+    transaction_uuid = payload.get("transaction_uuid")
+    status = payload.get("status")  # "COMPLETE", "PENDING", "CANCELED", etc.
 
     payment = db.query(Payment).filter(
-
         Payment.transaction_id == transaction_uuid
-
     ).first()
 
-
-
     if not payment:
+        return {"error": "Payment not found"}
 
-        return {
-
-            "error": "Payment not found"
-
-        }
-
-
-
-
-    result = verify_payment(
-
-        transaction_uuid,
-
-        payment.amount
-
-    )
-
-
-
+    # Now verify against eSewa's status check API using transaction_uuid
+    result = verify_payment(transaction_uuid, payment.amount)
 
     if result:
-
-
         payment.status = "SUCCESS"
-
         db.commit()
-
-
-
-        return {
-
-            "message":
-            "Payment successful. Premium unlocked"
-
-        }
-
-
-
+        return {"message": "Payment successful. Premium unlocked"}
 
     payment.status = "FAILED"
-
     db.commit()
-
-
-
-    return {
-
-        "message":
-        "Payment failed"
-
-    }
-
-
-
-
-
-
+    return {"message": "Payment failed"}
 
 # FAILURE CALLBACK
 

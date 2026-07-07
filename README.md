@@ -81,8 +81,7 @@ It analyzes an uploaded resume and returns:
 
 **Frontend**
 - HTML / CSS / JS
-- Vanilla `fetch` API
-- No framework overhead
+
 
 </td>
 <td valign="top" width="33%">
@@ -101,7 +100,7 @@ It analyzes an uploaded resume and returns:
 - eSewa ePay v2
 - Docker + Docker Compose
 - GitHub Actions CI/CD
-- Render (API) · Netlify (frontend)
+  
 
 </td>
 </tr>
@@ -159,7 +158,7 @@ Resume-Roaster/
 ### 1. Clone the repo
 ```bash
 git clone <repo-url>
-cd Resume-Roaster
+cd Resume-Roast
 ```
 
 ### 2. Backend setup
@@ -269,62 +268,6 @@ Frontend auto-submits hidden form ──▶  eSewa Payment Page
 
 > ⚠️ Sandbox credentials only. For production, get your `product_code` and `secret_key` from the [eSewa Merchant Dashboard](https://merchant.esewa.com.np).
 
-### Required `.env` additions
-
-```env
-ESEWA_PRODUCT_CODE=EPAYTEST
-ESEWA_SECRET_KEY=8gBm/:&EnhH.1/q
-ESEWA_PAYMENT_URL=https://rc-epay.esewa.com.np/api/epay/main/v2/form
-ESEWA_STATUS_URL=https://rc.esewa.com.np/api/epay/transaction/status/
-SUCCESS_URL=http://localhost:8000/payment/success
-FAILURE_URL=http://localhost:8000/payment/failure
-```
-
-### Payment API endpoints
-
-<details>
-<summary><b>Payment endpoints</b></summary>
-
-| Method | Endpoint | Description |
-|---|---|---|
-| `POST` | `/payment/initiate` | Builds signed eSewa payload, returns form fields to frontend |
-| `GET` | `/payment/success` | Decodes Base64 `?data=` param, verifies HMAC signature, marks payment complete |
-| `GET` | `/payment/failure` | Handles failed or cancelled payments |
-| `GET` | `/payment/status/{uuid}` | Server-side status check via eSewa Status API |
-
-</details>
-
-### Signature generation (HMAC-SHA256)
-
-The payload that gets signed is always:
-
-```
-total_amount=<amount>,transaction_uuid=<uuid>,product_code=<code>
-```
-
-```python
-import hmac, hashlib, base64
-
-def generate_signature(total_amount, transaction_uuid, product_code, secret_key):
-    message = f"total_amount={total_amount},transaction_uuid={transaction_uuid},product_code={product_code}"
-    signature = hmac.new(secret_key.encode(), message.encode(), hashlib.sha256).digest()
-    return base64.b64encode(signature).decode()
-```
-
-### Callback verification (success redirect)
-
-eSewa returns a `?data=` query param on redirect. Decode and verify it:
-
-```python
-import base64, json
-
-def decode_esewa_callback(data: str):
-    decoded = base64.b64decode(data).decode("utf-8")
-    payload = json.loads(decoded)
-    # payload contains: transaction_code, status, total_amount,
-    #                   transaction_uuid, product_code, signature
-    return payload
-```
 
 ---
 
@@ -344,7 +287,6 @@ Every push to the backend is automatically installed, tested, and validated befo
 - [ ] Resume scoring against specific job descriptions (JD-matching)
 - [ ] Export roast + feedback as a shareable PDF
 - [ ] Support for `.docx` resume uploads
-- [ ] Multi-LLM fallback (Groq → OpenAI) for resilience
 
 ---
 
